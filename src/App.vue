@@ -1,29 +1,75 @@
 <template>
-  <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
-    <router-view/>
-  </div>
+    <section>
+
+
+
+        <Header-app v-show="showHeader"></Header-app>
+
+        <!--<transition name="slide-right">-->
+            <router-view/>
+        <!--</transition>-->
+
+
+
+        <!--<footer>-->
+            <!--<div class="container">-->
+                <!--<p>© 2018 Компани, Инк.</p>-->
+                <!--<a href="https://vk.com/public163288183" target="_blank">vk</a>-->
+            <!--</div>-->
+        <!--</footer>-->
+    </section>
 </template>
+<script>
+
+
+    import Headerapp from './components/Header.vue';
+
+    export default {
+        name: "App",
+        data () {
+            return {
+                transitionName: false
+            }
+        },
+        created(){
+        },
+        mounted: function () {
+
+        },
+        computed: {
+            showHeader(){
+                if(this.$route.path == '/promo' || this.$route.path == '/gifs' || this.$route.path == '/'){
+                    return false;
+                }
+                return true;
+            }
+        },
+        components: {
+            "Header-app":Headerapp
+        },
+        methods: {
+
+        },
+        watch: {
+            '$route' (to, from) {
+//                const toDepth = to.path.split('/').length;
+//                const fromDepth = from.path.split('/').length;
+//                this.transitionName = toDepth < fromDepth ? 'slide-right' : 'slide-left'
+            }
+        }
+    };
+</script>
 
 <style lang="scss">
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
-#nav {
-  padding: 30px;
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-    &.router-link-exact-active {
-      color: #42b983;
+    @import "assets/styles/media";
+    .slide-right-enter-active {
+        transition: all .8s ease;
     }
-  }
-}
+    .slide-right-leave-active {
+        transition: all .8s ease;
+    }
+    .slide-right-enter, .slide-leave-to {
+        transform: translateX(320px);
+        /*opacity: 0;*/
+    }
 </style>

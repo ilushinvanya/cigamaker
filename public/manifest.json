@@ -1,6 +1,6 @@
 {
-  "name": "develop2",
-  "short_name": "develop2",
+  "name": "Cigarett maker",
+  "short_name": "CigaMaker",
   "icons": [
     {
       "src": "./img/icons/android-chrome-192x192.png",

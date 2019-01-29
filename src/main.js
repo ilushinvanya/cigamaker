@@ -4,8 +4,12 @@ import router from './router'
 import store from './store'
 import './registerServiceWorker'
 
-Vue.config.productionTip = false
+import VueResource from 'vue-resource';
+Vue.use(VueResource);
 
+Vue.http.options.root = process.env.NODE_ENV == 'production' ? '/' : 'http://cigamaker.ru';
+
+Vue.config.productionTip = false;
 new Vue({
   router,
   store,

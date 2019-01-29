@@ -1,0 +1,75 @@
+$width-320: 320px;
+$width-768: 768px;
+$width-1024: 1024px;
+$width-1280: 1280px;
+$width-1440: 1440px;
+$width-1920: 1920px;
+$blue: #017AFD;
+$red: #ff008b;
+@mixin mobile {
+	  @media (min-width: #{$width-320}) and (max-width: #{$width-768}) {
+			@content;
+	  }
+}
+
+@mixin tablet {
+	  @media (min-width: #{$width-768 + 1px}) and (max-width: #{$width-1024}) {
+			@content;
+	  }
+}
+
+@mixin small-desktop {
+	  @media (min-width: #{$width-1024 + 1px}) and (max-width: #{$width-1280}) {
+			@content;
+	  }
+}
+
+@mixin min-desktop {
+	  @media (min-width: #{$width-1280 + 1px}) and (max-width: #{$width-1440}) {
+			@content;
+	  }
+}
+
+@mixin mid-desktop {
+	  @media (min-width: #{$width-1440 + 1px}) and (max-width: #{$width-1920}) {
+			@content;
+	  }
+}
+
+@mixin lg-desktop {
+	  @media (min-width: #{$width-1920 + 1px}) {
+			@content;
+	  }
+}
+
+@mixin min-height {
+	  @media (max-height: 900px) {
+			@content;
+	  }
+}
+
+@mixin small-height {
+	  @media (max-height: 800px) {
+			@content;
+	  }
+}
+@mixin iphone6s {
+	  @media only screen
+	  and (min-device-width: 375px)
+	  and (max-device-width: 667px)
+	  and (-webkit-min-device-pixel-ratio: 2) {
+			@content;
+	  }
+}
+
+body {
+	  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+	  margin: 0;
+	  padding: 0;
+}
+* {
+	  box-sizing: border-box;
+}
+[v-cloak] {
+	  display: none;
+}

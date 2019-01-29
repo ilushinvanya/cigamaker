@@ -1,4 +1,4 @@
-# develop2
+# CigkaMaker WebApp
 
 ## Project setup
 ```
