@@ -9,12 +9,8 @@
         data() {
             return {}
         },
-        created() {
-//            fetch("https://api.giphy.com/v1/gifs/search?api_key=aXo2abWlsmGgq9UU5Zm5dyJgdlcB27Fb&q=smoke&limit=25&offset=0&rating=G&lang=en").then(data => {
-//                console.log(data)
-//            })
-        },
-        mounted: function () {
+        created() {},
+        mounted() {
             var self = this;
             if (this.$route.hash.length > 0) {
 
@@ -31,27 +27,23 @@
 //                console.log("paramsObj",paramsObj)
 
                 if (paramsObj.access_token) {
-                    self.$http.jsonp("https://api.vk.com/method/users.get?user_ids=" + paramsObj.user_id + "&fields=bdate,photo_50&v=5.74&access_token=" + paramsObj.access_token).then(response => {
+                    localStorage.setItem('cigamaker_token', paramsObj.access_token);
+                    localStorage.setItem('cigamaker_user', paramsObj.user_id);
 
-                        this.$store.commit('setUser', response.body.response[0]);
+                    this.$store.dispatch('get_data_from_vk');
 
-                        this.$router.push({path:paramsObj.state})
+                    this.$router.push({path:paramsObj.state})
+                    history.pushState("", document.title, window.location.pathname + window.location.search);
 
-                        history.pushState("", document.title, window.location.pathname + window.location.search);
-                    }, response => {
-                        // error callback
-                    });
+                }else{
+                    this.$router.push({path:"/"})
                 }
 
 
             };
         },
-        computed: {
-
-        },
-        components: {
-
-        },
+        computed: {},
+        components: {},
         methods: {},
         watch: {}
     };

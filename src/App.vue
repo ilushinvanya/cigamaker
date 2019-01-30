@@ -1,27 +1,14 @@
 <template>
     <section>
-
-
-
         <Header-app v-show="showHeader"></Header-app>
-
-        <!--<transition name="slide-right">-->
-            <router-view/>
-        <!--</transition>-->
+        <router-view/>
 
 
+        <!--<a href="https://vk.com/public163288183" target="_blank">vk</a>-->
 
-        <!--<footer>-->
-            <!--<div class="container">-->
-                <!--<p>© 2018 Компани, Инк.</p>-->
-                <!--<a href="https://vk.com/public163288183" target="_blank">vk</a>-->
-            <!--</div>-->
-        <!--</footer>-->
     </section>
 </template>
 <script>
-
-
     import Headerapp from './components/Header.vue';
 
     export default {
@@ -31,10 +18,13 @@
                 transitionName: false
             }
         },
-        created(){
-        },
-        mounted: function () {
+        mounted() {
+            var access_token = localStorage.getItem('cigamaker_token');
+            var user_id = localStorage.getItem('cigamaker_user');
 
+            if(access_token && user_id){
+                this.$store.dispatch('get_data_from_vk');
+            }
         },
         computed: {
             showHeader(){
@@ -47,16 +37,6 @@
         components: {
             "Header-app":Headerapp
         },
-        methods: {
-
-        },
-        watch: {
-            '$route' (to, from) {
-//                const toDepth = to.path.split('/').length;
-//                const fromDepth = from.path.split('/').length;
-//                this.transitionName = toDepth < fromDepth ? 'slide-right' : 'slide-left'
-            }
-        }
     };
 </script>
 

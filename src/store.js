@@ -55,5 +55,27 @@ export default new Vuex.Store({
             });
 
         }
+    },
+    actions:{
+        get_data_from_vk({commit}){
+            var access_token = localStorage.getItem('cigamaker_token');
+            var user_id = localStorage.getItem('cigamaker_user');
+
+            Vue.http.jsonp("https://api.vk.com/method/users.get?user_ids=" + user_id + "&v=5.74&access_token=" + access_token).then(response => {
+                if(response.body.error){
+                    // Если приходит плохой ответ, то ни коммита, и локал сторадж удаляем
+                    localStorage.removeItem('cigamaker_token');
+                    localStorage.removeItem('cigamaker_user');
+                }else if(response.body.response){
+                    commit('setUser', response.body.response[0]);
+                }else{
+
+                }
+
+
+            }, response => {
+                // error callback
+            });
+        }
     }
 });

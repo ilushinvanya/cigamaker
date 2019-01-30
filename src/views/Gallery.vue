@@ -59,7 +59,10 @@
         },
         methods: {
             elemInViewport(full) {
-                var box = document.getElementById('submit').getBoundingClientRect();
+                var element = document.getElementById('submit');
+                if(!element) return false;
+
+                var box = element.getBoundingClientRect();
                 var top = box.top;
                 var left = box.left;
                 var bottom = box.bottom;
