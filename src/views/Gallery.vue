@@ -1,5 +1,9 @@
 <template>
     <div class="gallery" @scroll="elemInViewport()">
+
+        <div class="loading" v-show="loading"></div>
+
+
         <h2 v-if="profile">Галерея Пользователя {{ profile }}</h2>
         <span class="show_all"
               v-if="profile"
@@ -98,7 +102,7 @@
                     data.append('profile', this.profile);
                 }
 
-
+                this.pics = []
                 this.$http.post("php/index.php", data).then(response => {
 
                     var data = response.body.data;
@@ -115,6 +119,9 @@
                     }
 
                     self.loading = false;
+
+
+                    console.log(self.pics)
                 }, response => {
                     // error callback
                 });
@@ -131,11 +138,12 @@
         watch: {
             profile() {
                 this.page = 0;
-            }
-            ,
+            },
             $route(to, from) {
                 this.page = 0;
                 this.load()
+
+
             }
         }
     }
@@ -149,6 +157,18 @@
         height: 90vh;
         overflow: hidden;
         overflow-y: scroll;
+
+        .loading {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: white;
+            z-index: 9;
+            opacity: 0.8;
+        }
+
         h2 {
             text-align: center;
             font-family: 'Lora', serif;
