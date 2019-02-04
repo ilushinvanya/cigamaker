@@ -102,7 +102,7 @@
                     data.append('profile', this.profile);
                 }
 
-                this.pics = []
+
                 this.$http.post("php/index.php", data).then(response => {
 
                     var data = response.body.data;
@@ -110,6 +110,7 @@
                     if (self.page > 0) { // page не первый, то делаем конкат
                         self.pics = self.pics.concat(data);
                     } else { // если это первая страница, то просто обновляем данные
+                        self.pics = [];
                         self.pics = data;
                     }
                     if (data.length < 10) { // а это, если ответ содержит меньше 10 объектов, то оверПейдж убираем
