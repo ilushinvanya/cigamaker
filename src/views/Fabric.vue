@@ -221,13 +221,9 @@
                     };
 
                     if(rectImage !== undefined){ // если есть изображение
-                        vueBox = {
-                            y: 0
-                        }
+                        vueBox.y = 0;
                     }else{ // если его нет то из центра считаем
-                        vueBox = {
-                            y: rectBlack.get('top')
-                        }
+                        vueBox.y = rectBlack.get('top');
                     }
 
                     self.enable = false;

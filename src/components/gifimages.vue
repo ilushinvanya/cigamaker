@@ -3,6 +3,7 @@
         <a v-for="(item,index) in shuffle(pictures)"
            :href="item.url"
            target="_blank"
+           v-if="index < 5"
            :key="index">
            <img :src="item.images.fixed_height_small.url"/>
 
@@ -14,17 +15,7 @@
         name: "Gifs_gallery",
         props: ['pictures', 'indx'],
         methods: {
-            show(pic){
-                fetch(pic.url).then((data)=>{
-                    return true;
-                })
-
-                return true;
-            },
-            meth(array){
-//                return array.
-            },
-            shuffle(array) {
+            shuffle(array=[]) {
                 var currentIndex = array.length, temporaryValue, randomIndex;
 
                 // While there remain elements to shuffle...

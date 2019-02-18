@@ -111,7 +111,10 @@
                         self.pics = self.pics.concat(data);
                     } else { // если это первая страница, то просто обновляем данные
                         self.pics = [];
-                        self.pics = data;
+                        self.$nextTick(()=>{
+                            self.pics = data;
+
+                        })
                     }
                     if (data.length < 10) { // а это, если ответ содержит меньше 10 объектов, то оверПейдж убираем
                         self.overPage = false;
