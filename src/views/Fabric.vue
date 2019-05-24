@@ -99,7 +99,6 @@
 
             if (sessionStorage.getItem("cigamaker_image")) {
                 this.image_url = sessionStorage.getItem("cigamaker_image");
-//                this.addImage();
             }
 
 
@@ -164,17 +163,13 @@
             },
             addImage(){
                 var self = this;
+
+                if(self.image_url == '') { return false; }
+
                 if(rectImage !== undefined) {
                     canvas.remove(rectImage);
                     rectImage = undefined;
                 };
-
-//                var data = new FormData();
-//                data.append('method', 'url_pic');
-//                data.append('url', self.image_url);
-//                self.$http.post("./php/index.php", data).then(response => {
-//                    console.log(response);
-//                });
 
 
                 var imgObj = new Image();
@@ -200,6 +195,9 @@
 
                 imgObj.onerror = function(){
                     self.image_url = '';
+                    self.reSize();
+                    canvas.remove(rectImage);
+                    rectImage = undefined;
                     alert('Что-то не загрузилось, попробуйте другую картинку из другого источника, спасибо, извините')
                 }
             },
@@ -339,7 +337,6 @@
 
 
 
-//                $('textarea').css({'height': $('textarea')[0].scrollHeight + 2});
                 canvas.renderAll();
             }
         },

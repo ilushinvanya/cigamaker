@@ -1,13 +1,12 @@
 import { expect } from 'chai'
-import { shallowMount } from '@vue/test-utils'
-import HelloWorld from '@/components/HelloWorld.vue'
+import { mount } from '@vue/test-utils'
+import HelloWorld from '@/components/gifimages.vue'
 
-describe('HelloWorld.vue', () => {
-  it('renders props.msg when passed', () => {
-    const msg = 'new message'
-    const wrapper = shallowMount(HelloWorld, {
-      propsData: { msg }
+describe('Компонент Counter', () => {
+    const wrapper = mount(HelloWorld, {
+        propsData: {
+            indx: 6
+        }
     })
-    expect(wrapper.text()).to.include(msg)
-  })
+    expect(wrapper.props().indx).to.be.a('Number');
 })

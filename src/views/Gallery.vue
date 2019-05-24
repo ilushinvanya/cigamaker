@@ -11,10 +11,13 @@
 
         <h2 v-if="!profile">Галерея всех пользователей</h2>
 
-        <div class="gallery_list">
-            <kartina v-for="pic in pics"
+        <div class="gallery_list"
+             v-for="page_pics in pics">
+
+            <kartina v-for="pic in page_pics"
+                     :ref="'pic_' + pic.image"
                      :pic_data="pic"
-                     :key="pic.id"></kartina>
+                     :key="pic.picId"></kartina>
         </div>
 
         <div class="btn_wrap"
@@ -36,7 +39,7 @@
             return {
                 overPage: true,
                 page: 0,
-                pics: [],
+                pics: [[]],
                 loading: false
             }
         },
@@ -53,16 +56,15 @@
             },
             user() {
                 return this.$store.state.authUser;
-            }
+            },
+
         },
         mounted: function () {
             this.load();
         },
-        components: {
-            'kartina': kartina
-        },
+        components: { 'kartina': kartina },
         methods: {
-            elemInViewport(full) {
+            elemInViewport() {
                 var element = document.getElementById('submit');
                 if(!element) return false;
 
@@ -75,25 +77,25 @@
                 var height = document.documentElement.clientHeight;
                 var maxWidth = 0;
                 var maxHeight = 0;
-//                if (full) {
-//                    maxWidth = right - left;
-//                    maxHeight = bottom - top
-//                }
+
                 var res = Math.min(height, bottom) - Math.max(0, top) >= maxHeight && Math.min(width, right) - Math.max(0, left) >= maxWidth;
 
                 if(res){
+                    console.log("res",res)
                     this.incrementPage();
                 }
 
             },
             load() {
 
+                var self = this;
                 if(this.loading){
                     return false;
+                }else{
+                    self.loading = true;
                 }
 
-                var self = this;
-                self.loading = true;
+
                 var data = new FormData();
                 data.append('method', 'show_content');
                 data.append('page', this.page);
@@ -102,19 +104,19 @@
                     data.append('profile', this.profile);
                 }
 
-
+                console.log(self.page,data)
                 this.$http.post("php/index.php", data).then(response => {
 
                     var data = response.body.data;
 
+
+
                     if (self.page > 0) { // page не первый, то делаем конкат
-                        self.pics = self.pics.concat(data);
+                        self.pics[self.page] = data;
                     } else { // если это первая страница, то просто обновляем данные
                         self.pics = [];
-                        self.$nextTick(()=>{
-                            self.pics = data;
-
-                        })
+                        self.pics[0] = data;
+//
                     }
                     if (data.length < 10) { // а это, если ответ содержит меньше 10 объектов, то оверПейдж убираем
                         self.overPage = false;
@@ -124,8 +126,6 @@
 
                     self.loading = false;
 
-
-                    console.log(self.pics)
                 }, response => {
                     // error callback
                 });
@@ -146,8 +146,6 @@
             $route(to, from) {
                 this.page = 0;
                 this.load()
-
-
             }
         }
     }
@@ -184,10 +182,11 @@
         }
         .gallery_list {
             position: relative;
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-between;
             margin-top: 30px;
+            display: flex;
+            flex-direction: column;
+            flex-wrap: wrap;
+            max-height: 1000px;
         }
         .btn_wrap {
             text-align: center;

@@ -1,7 +1,5 @@
 <template>
-    <section id="register">
-        <!--<h1>Register</h1>-->
-    </section>
+    <section id="register"></section>
 </template>
 <script>
     export default {

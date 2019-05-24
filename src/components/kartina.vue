@@ -180,11 +180,10 @@
 <style lang="scss">
     @import '../assets/styles/media';
     .gallery_item {
-        margin-bottom: 10px;
         box-sizing: border-box;
         position: relative;
-        width: 18%;
-
+        width: 21%;
+        margin: 0 1rem 1rem 0;
         @include mobile {
             width: 48%;
         }

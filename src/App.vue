@@ -2,10 +2,6 @@
     <section>
         <Header-app v-show="showHeader"></Header-app>
         <router-view/>
-
-
-        <!--<a href="https://vk.com/public163288183" target="_blank">vk</a>-->
-
     </section>
 </template>
 <script>
@@ -50,6 +46,5 @@
     }
     .slide-right-enter, .slide-leave-to {
         transform: translateX(320px);
-        /*opacity: 0;*/
     }
 </style>
